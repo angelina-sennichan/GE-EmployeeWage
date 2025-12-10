@@ -1,16 +1,16 @@
 public class Employee {
-    int dailyAttendance;
-    int wagePerHour = 20;
-    int fullDayHour = 8;
-    int partTimeHour = 4;
-    int dailyWage;
-    int totalWage = 0;
-    int totalHours = 0;
-    int totalDays = 0;
-    int maxDays = 20;   // UC6 Requirement
-    int maxHours = 100;
+    static int dailyAttendance;
+    static int wagePerHour = 20;
+    static int fullDayHour = 8;
+    static int partTimeHour = 4;
+    static int dailyWage;
+    static int totalWage = 0;
+    static int totalHours = 0;
+    static int totalDays = 0;
+    static int maxDays = 20;
+    static int maxHours = 100;
 
-    public void calculateAttendance() {
+    public static void calculateAttendance() {
         int randomCheck = (int)(Math.random() * 3);  // 0, 1 or 2
         switch (randomCheck) {
             case 0:
@@ -28,7 +28,7 @@ public class Employee {
         }
     }
 
-    public void calculateDailyWage() {
+    public static void calculateDailyWage() {
         switch (dailyAttendance) {
             case 1: // Part-time
                 dailyWage = wagePerHour * partTimeHour;
@@ -46,7 +46,7 @@ public class Employee {
     }
 
     //stop when total working hours is 100 or days reach 20
-    public void calculateMonthlyWage() {
+    public static void calculateMonthlyWage() {
         while(totalHours < maxHours && totalDays < maxDays){
             totalDays++;
             System.out.println("\nDay " + totalDays + ":");
