@@ -4,8 +4,11 @@ public class Employee {
     int fullDayHour = 8;
     int partTimeHour = 4;
     int dailyWage;
-    int workingDays = 20;
     int totalWage = 0;
+    int totalHours = 0;
+    int totalDays = 0;
+    int maxDays = 20;   // UC6 Requirement
+    int maxHours = 100;
 
     public void calculateAttendance() {
         int randomCheck = (int)(Math.random() * 3);  // 0, 1 or 2
@@ -42,13 +45,39 @@ public class Employee {
         }
     }
 
+    //stop when total working hours is 100 or days reach 20
     public void calculateMonthlyWage() {
-        for (int day = 1; day <= workingDays; day++) {
-            System.out.println("\nDay " + day + ":");
-            calculateAttendance();   // determine attendance
-            calculateDailyWage();    // calculate daily wage
-            totalWage += dailyWage;  // add to monthly total
+        while(totalHours < maxHours && totalDays < maxDays){
+            totalDays++;
+            System.out.println("\nDay " + totalDays + ":");
+            calculateAttendance();
+            int workingHours = 0;
+
+            switch(dailyAttendance){
+                case 1:
+                    workingHours = partTimeHour;
+                    break;
+                case 2:
+                    workingHours = fullDayHour;
+                    break;
+                case 0:
+                default:
+                    workingHours = 0;
+            }
+
+            if(totalHours + workingHours > maxHours){
+                workingHours = maxHours - totalHours;
+            }
+            totalHours += workingHours;
+            dailyWage = workingHours * wagePerHour;
+            totalWage += dailyWage;
+            System.out.println("Working Hours Today: " + workingHours);
+            System.out.println("Daily Wage: " + dailyWage);
+            System.out.println("Total Hours So Far: " + totalHours);
         }
-        System.out.println("\nTotal Wage for the Month: " + totalWage);
+        System.out.println("\nFinal Monthly Summary");
+        System.out.println("Total Working Days: " + totalDays);
+        System.out.println("Total Working Hours: " + totalHours);
+        System.out.println("Total Wage for the Month: " + totalWage);
     }
 }
